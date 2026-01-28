@@ -108,8 +108,17 @@ function Get-ConnectionEndpoints {
     param([object]$Environment)
 
     $results = @()
+
+    # Get environment name and display name (try multiple property locations)
     $envName = $Environment.EnvironmentName
+    if (-not $envName) { $envName = $Environment.Name }
+    if (-not $envName -and $Environment.Internal) { $envName = $Environment.Internal.name }
+
     $envDisplayName = $Environment.DisplayName
+    if (-not $envDisplayName -and $Environment.Internal -and $Environment.Internal.properties) {
+        $envDisplayName = $Environment.Internal.properties.displayName
+    }
+    if (-not $envDisplayName) { $envDisplayName = $envName }
 
     Write-Host "  Querying Connection Instances..." -ForegroundColor Cyan
 
@@ -343,8 +352,17 @@ function Get-FlowEndpoints {
     param([object]$Environment)
 
     $results = @()
+
+    # Get environment name and display name (try multiple property locations)
     $envName = $Environment.EnvironmentName
+    if (-not $envName) { $envName = $Environment.Name }
+    if (-not $envName -and $Environment.Internal) { $envName = $Environment.Internal.name }
+
     $envDisplayName = $Environment.DisplayName
+    if (-not $envDisplayName -and $Environment.Internal -and $Environment.Internal.properties) {
+        $envDisplayName = $Environment.Internal.properties.displayName
+    }
+    if (-not $envDisplayName) { $envDisplayName = $envName }
 
     Write-Host "  Analyzing Cloud Flows..." -ForegroundColor Cyan
 
@@ -512,8 +530,17 @@ function Get-FlowEndpointsFromDataverse {
     param([object]$Environment)
 
     $results = @()
+
+    # Get environment name and display name
     $envName = $Environment.EnvironmentName
+    if (-not $envName) { $envName = $Environment.Name }
+    if (-not $envName -and $Environment.Internal) { $envName = $Environment.Internal.name }
+
     $envDisplayName = $Environment.DisplayName
+    if (-not $envDisplayName -and $Environment.Internal -and $Environment.Internal.properties) {
+        $envDisplayName = $Environment.Internal.properties.displayName
+    }
+    if (-not $envDisplayName) { $envDisplayName = $envName }
 
     try {
         # Get Dataverse URL
@@ -971,8 +998,17 @@ function Get-CanvasAppEndpoints {
     param([object]$Environment)
 
     $results = @()
+
+    # Get environment name and display name
     $envName = $Environment.EnvironmentName
+    if (-not $envName) { $envName = $Environment.Name }
+    if (-not $envName -and $Environment.Internal) { $envName = $Environment.Internal.name }
+
     $envDisplayName = $Environment.DisplayName
+    if (-not $envDisplayName -and $Environment.Internal -and $Environment.Internal.properties) {
+        $envDisplayName = $Environment.Internal.properties.displayName
+    }
+    if (-not $envDisplayName) { $envDisplayName = $envName }
 
     Write-Host "  Analyzing Canvas Apps..." -ForegroundColor Cyan
 
@@ -1154,8 +1190,17 @@ function Get-CopilotEndpoints {
     param([object]$Environment)
 
     $results = @()
+
+    # Get environment name and display name
     $envName = $Environment.EnvironmentName
+    if (-not $envName) { $envName = $Environment.Name }
+    if (-not $envName -and $Environment.Internal) { $envName = $Environment.Internal.name }
+
     $envDisplayName = $Environment.DisplayName
+    if (-not $envDisplayName -and $Environment.Internal -and $Environment.Internal.properties) {
+        $envDisplayName = $Environment.Internal.properties.displayName
+    }
+    if (-not $envDisplayName) { $envDisplayName = $envName }
 
     Write-Host "  Analyzing Copilot Studio Agents..." -ForegroundColor Cyan
 
